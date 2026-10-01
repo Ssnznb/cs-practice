@@ -7,3 +7,9 @@ print(a-b)
 
 #3й коммит - умножение
 print(a*b)
+
+#4й коммит - деление с проверкой нуля
+if b != 0:
+    print(a/b)
+else:
+    print('b is zero')
