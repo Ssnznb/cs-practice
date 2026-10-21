@@ -13,6 +13,12 @@ def parse_event(line: str) -> dict:
     if level not in LEVELS:
         raise ValueError("Неизвестный уровень журнала")
 
+    if not message.strip():
+        raise ValueError("Пустое сообщение журнала")
+
+    if line[0].isspace():
+        raise ValueError("Некорректная строка журнала")
+
     return {
         "time": time,
         "level": level,
