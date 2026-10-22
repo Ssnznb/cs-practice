@@ -2,6 +2,10 @@
 LEVELS = {"DEBUG", "INFO", "WARNING", "ERROR"}
 
 
+
+LEVELS = {"DEBUG", "INFO", "WARNING", "ERROR"}
+
+
 def parse_event(line: str) -> dict:
     parts = line.strip().split(maxsplit=2)
 
@@ -16,14 +20,12 @@ def parse_event(line: str) -> dict:
     if not message.strip():
         raise ValueError("Пустое сообщение журнала")
 
-    if line[0].isspace():
-        raise ValueError("Некорректная строка журнала")
-
     return {
         "time": time,
         "level": level,
         "message": message,
     }
+
 
 
 def count_levels(lines: list[str]) -> dict:
