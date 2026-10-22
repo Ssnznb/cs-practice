@@ -3,7 +3,7 @@ LEVELS = {"DEBUG", "INFO", "WARNING", "ERROR"}
 
 
 def parse_event(line: str) -> dict:
-    parts = line.split(maxsplit=2)
+    parts = line.strip().split(maxsplit=2)
 
     if len(parts) != 3:
         raise ValueError("Некорректная строка журнала")
