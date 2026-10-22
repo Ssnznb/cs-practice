@@ -5,7 +5,7 @@ def parse_record(line: str) -> dict:
     if len(parts) != 3:
         raise ValueError("Неверное количество полей")
 
-    city, temp, date = parts
+    city, temp, date = (p.strip() for p in parts)
 
     if not city:
         raise ValueError("Пустой город")
