@@ -68,3 +68,21 @@ def parse_settings(lines: list[str]) -> dict:
                 current_list = None
 
     return result
+
+
+def merge_by_key(
+    rows: list[dict],
+    extra: dict,
+    key: str = "id"
+) -> list[dict]:
+    result = []
+
+    for row in rows:
+        additional = extra.get(row.get(key), {})
+
+        merged = dict(additional)
+        merged.update(row)
+
+        result.append(merged)
+
+    return result
