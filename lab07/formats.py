@@ -1,3 +1,7 @@
+"""Лабораторная работа lab07.
+Преобразование данных между CSV, YAML и JSON.
+"""
+
 def csv_to_records(text: str) -> list[dict]:
     if not text.strip():
         return []
