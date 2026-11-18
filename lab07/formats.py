@@ -23,6 +23,7 @@ def csv_to_records(text: str) -> list[dict]:
     return records
 
 
+
 def parse_settings(lines: list[str]) -> dict:
     result = {}
     current_list = None
@@ -30,22 +31,22 @@ def parse_settings(lines: list[str]) -> dict:
     def parse_value(value):
         value = value.strip()
 
-        if value.isdigit() or (
-            value.startswith("-") and value[1:].isdigit()
-        ):
+        if value.lower() in ("true", "yes"):
+            return True
+
+        if value.lower() in ("false", "no"):
+            return False
+
+        try:
             return int(value)
+        except ValueError:
+            pass
 
         try:
             if "." in value:
                 return float(value)
         except ValueError:
             pass
-
-        if value.lower() in ("true", "yes"):
-            return True
-
-        if value.lower() in ("false", "no"):
-            return False
 
         return value
 
