@@ -55,7 +55,7 @@ def parse_settings(lines: list[str]) -> dict:
             continue
 
         if line.startswith("- ") and current_list is not None:
-            result[current_list].append(parse_value(line[2:]))
+            result[current_list].append(line[2:].strip())
             continue
 
         if ":" in line:
