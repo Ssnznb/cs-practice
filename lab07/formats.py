@@ -27,6 +27,7 @@ def csv_to_records(text: str) -> list[dict]:
 
 import re
 
+
 def parse_settings(lines: list[str]) -> dict:
     result = {}
     current_list = None
@@ -40,11 +41,16 @@ def parse_settings(lines: list[str]) -> dict:
         if value.lower() in ("false", "no"):
             return False
 
-        if re.fullmatch(r"-?\d+", value):
+        try:
             return int(value)
+        except ValueError:
+            pass
 
-        if re.fullmatch(r"-?\d+\.\d+", value):
-            return float(value)
+        try:
+            if "." in value and "," not in value:
+                return float(value)
+        except ValueError:
+            pass
 
         return value
 
@@ -63,6 +69,9 @@ def parse_settings(lines: list[str]) -> dict:
             key = key.strip()
             value = value.strip()
 
+            if not key:
+                continue
+
             if value == "":
                 result[key] = []
                 current_list = key
@@ -71,6 +80,7 @@ def parse_settings(lines: list[str]) -> dict:
                 current_list = None
 
     return result
+
 
 
 def merge_by_key(
@@ -101,3 +111,4 @@ def records_to_json(records: list[dict]) -> str:
         indent=2,
         sort_keys=True
     )
+
