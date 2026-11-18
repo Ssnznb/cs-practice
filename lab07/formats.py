@@ -24,6 +24,9 @@ def csv_to_records(text: str) -> list[dict]:
 
 
 
+
+import re
+
 def parse_settings(lines: list[str]) -> dict:
     result = {}
     current_list = None
@@ -37,16 +40,11 @@ def parse_settings(lines: list[str]) -> dict:
         if value.lower() in ("false", "no"):
             return False
 
-        try:
+        if re.fullmatch(r"-?\d+", value):
             return int(value)
-        except ValueError:
-            pass
 
-        try:
-            if "." in value:
-                return float(value)
-        except ValueError:
-            pass
+        if re.fullmatch(r"-?\d+\.\d+", value):
+            return float(value)
 
         return value
 
